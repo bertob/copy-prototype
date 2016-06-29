@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotino</title>
+    <style>
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Fira Sans", sans-serif;
+        font-size: 18px;
+      }
+      .container {
+        position: relative;
+      }
+      .bg {
+        position: absolute;
+      }
+      .text {
+        position: absolute;
+        left: 34px;
+        top: 128px;
+      }
+      .bigger {
+        transition: all 0.22s ease-out;
+        transform: translate(0px, 0px) scale(1.08);
+        border-radius: 5px;
+      }
+      .tiny {
+        transition: all 0.4s ease-out;
+        transform: translate(150px, -127px) scale(0.05, 0.4);
+        border-radius: 20px;
+      }
+      .invisible {
+        transition: all 0.4s ease-out;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container" id="container">
+      <img class="bg" id="bg"  src="bg.png">
+      <img class="text" id="text" src="text.png">
+      <p>Press ctrl + c to see the demo</p>
+    </section>
+
+    <script src="lib/jquery.min.js"></script>
+    <script>
+
+    // window.addEventListener("keydown", function (e) {
+    //   console.log("Key Pressed: " + String.fromCharCode(e.keyCode) + "   charCode: " + e.keyCode);
+    //   if (e.keyCode === )
+    // }
+    var ctrlDown = false,
+        ctrlKey = 17,
+        cmdKey = 91,
+        vKey = 86,
+        cKey = 67;
+
+    $(document).keydown(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+    }).keyup(function(e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+    });
+
+    $(document).keydown(function(e) {
+        if (ctrlDown && (e.keyCode == cKey)) {
+          $("#text").toggleClass("bigger");
+          setTimeout( function() {
+            $("#text").toggleClass("tiny");
+            setTimeout( function() {
+              $("#text").toggleClass("invisible");
+              setTimeout( function() {
+                $("#text").toggleClass("tiny").toggleClass("bigger").toggleClass("invisible");
+              }, 700);
+            }, 650);
+          }, 240);
+        }
+    });
+
+      $("#text").on("click", function() {
+        console.log("dd");
+        // $(this).toggleClass("bigger");
+        // setTimeout( function() {
+        //   $("#text").toggleClass("tiny");
+        // }, 300);
+        // setTimeout( function() {
+        //   $("#text").toggleClass("tiny").toggleClass("bigger");
+        // }, 1900);
+      });
+
+    </script>
+  </body>
+</html>
